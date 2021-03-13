@@ -22,6 +22,8 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'avatar',
+        'confirmed',
     ];
 
     /**
@@ -42,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUserRolesAttribute()
+    {
+        return $this->roles->pluck('slug')->join(',');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,6 @@ Auth::routes();
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index']);
-    // Route::resource('/user', UserController::class);
+    Route::resource('/user', UserController::class);
 
 });
