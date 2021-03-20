@@ -199,10 +199,10 @@
               </li> --}}
 
               <li class="mb-2 user-panel pb-3 nav-item">
-                <a href="/admin/user" class="nav-link"><span>Users</span></a>
+                <a href="/admin/user" class="nav-link"><span>Користувачі</span></a>
               </li>
               <li class="mb-2 pt-2 user-panel pb-3 nav-item">
-                <a href="/admin/product" class="nav-link"><span>Test</span></a>
+                <a href="/admin/slider" class="nav-link"><span>Слайдер</span></a>
               </li>
         </ul>
       </nav>
