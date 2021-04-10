@@ -11,12 +11,15 @@
             {{ session('danger') }}
         </div>
     @endif
+    <a href="/admin/user/create" class="btn btn-primary mb-3">Add User</a>
   
     <table class="table" id="dataTable">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Consumer</th>
+                <th>Avatar</th>
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -29,6 +32,8 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->name}}</td>
+                    <td>{{$item->consumer ? $item->consumer->name : ''}}</td>
+                    <td><img src="{{asset($item->avatar)}}" alt="" style="width: 70px"></td>
                     <td>{{$item->phone}}</td>
                     <td>{{$item->email}}</td>
                     <td>

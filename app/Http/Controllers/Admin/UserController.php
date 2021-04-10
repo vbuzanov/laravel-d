@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consumer;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $consumers = Consumer::all()->pluck('name', 'id');
+        $roles = Role::all()->pluck('name', 'id');
+        // dd($roles);
+  
+        return view('admin.user.create', compact('consumers', 'roles'));
     }
 
     /**
@@ -38,7 +44,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'phone' => 'max:20',
+            'email' => 'required|email|unique:users|max:255',
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->avatar = $request->avatar;
+        $user->consumer_id = $request->consumer_id;
+        $user->confirmed = $request->confirmed;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $role_id = Role::find($request->role_id)->id;
+        $user->roles()->sync($role_id);
+
+        return redirect('/admin/user')->with('success', 'Thank! User added!');
     }
 
     /**
@@ -61,10 +88,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $consumers = Consumer::all()->pluck('name', 'id');
         $roles = Role::all()->pluck('name', 'id');
         // dd($roles);
   
-        return view('admin.user.edit', compact('user', 'roles'));
+        return view('admin.user.edit', compact('user', 'consumers', 'roles'));
     }
 
     /**
@@ -82,8 +110,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,'.$id.'|max:255',
         ]);
         $user = User::findOrFail($id);
-        
- 
+    
         $user->update( $request->all() );
 
         $role_id = Role::find($request->role_id)->id;

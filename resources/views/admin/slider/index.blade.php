@@ -29,7 +29,7 @@
                     <td>{{$item->button_url}}</td>
                     <td>
                         <a href="/admin/slider/{{$item->id}}/edit" class="btn btn-warning">Edit</a>
-                        {!! Form::open(['url' => '/admin/slider/'.$item->id, 'method' => 'DELETE']) !!}
+                        {!! Form::open(['url' => '/admin/slider/'.$item->id, 'method' => 'DELETE', 'class' => 'd-inline']) !!}
                             <button class="btn btn-danger">DELETE</button>
                         {!! Form::close() !!}
                     </td>

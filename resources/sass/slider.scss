@@ -1,4 +1,42 @@
 .one-time{
-    width: 80vw;
+    // width: 65vw;
     margin: 0 auto;
+
+}
+
+.slider{
+    position: relative;
+}
+
+.one-time img{
+    width: 100%;
+}
+
+.slider h2{
+position: absolute;
+color: rgb(243, 222, 222);
+top: 30%;
+font-size: 3em;
+text-align: center;
+font-weight: 900;
+}
+
+.slider p{
+    position: absolute;
+    color: rgb(243, 222, 222);
+    bottom: 10vh;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 700;
+}
+
+@media screen and (max-width:768px){
+    .slider h2{
+        top: 20%;
+        font-size: 1.5em;
+    }
+    .slider p{
+        bottom: 2h;
+        font-size: 1.1em;
+    }
 }

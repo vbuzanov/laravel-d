@@ -9,9 +9,21 @@ trait HasRolesAndPermissions{
         return $this->belongsToMany(Role::class, 'roles_users');
     }
 
-    public function hasRole($role)
+    public function hasRole($roles)
     {
-        return $this->roles->contains('slug', $role);
+        $roles = is_array($roles) ? $roles : explode('|', $roles);
+
+        foreach ($roles as $role) {
+            if ($this->roles->contains('slug', $role)) {
+                return true;
+            }
+        }
+
+        return false;
+
+        // dd($role);
+        // return $this->roles->contains('slug', $role);
     }
 
 }
+

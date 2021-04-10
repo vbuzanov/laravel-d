@@ -1,23 +1,17 @@
 <div class="one-time">
     @foreach ($sliders as $slider)
         <div>
-            {{-- <div> --}}
+ 
                 <div class="slider d-flex justify-content-center">
                     <img class="text-center" src="{{ $slider->img }}" alt="{{ $slider->name }}">
-                    {{-- <div class="content">
-                        <div>
-                            <h1>{{ $slider->name }}</h1>
-                        </div>
-                        <div>
-                            {{ $slider->description }}
-                        </div>
-                        <div>
-                            <a href="{{ $slider->button_url }}">{{ $slider->button_text }}</a>
-                        </div>
-                    </div> --}}
+
+                            <h2>{{ $slider->name }}</h2>
+     
+                        <p>
+                            {!! $slider->description !!}
+                        </p>
+
                 </div>
-         
-            {{-- </div> --}}
         </div>
     @endforeach
 </div>
@@ -32,7 +26,8 @@
             infinite: true,
             speed: 600,
             slidesToShow: 1,
-            adaptiveHeight: true
+            adaptiveHeight: true,
+            pauseOnHover: false
             });
     });
 

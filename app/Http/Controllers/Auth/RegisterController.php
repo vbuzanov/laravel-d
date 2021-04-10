@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consumer;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -50,12 +51,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+     
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'numeric'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:6', 'confirmed'],
+            ]);
+  
     }
 
     /**
@@ -66,17 +69,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $consumer = Consumer::where('code',  $data['code'])->get();
+        if(count($consumer) < 1 ){
+            abort(404);
+        }
+
         $role = Role::where('slug', 'user')->first();
         $user = User::create([
             'name' => $data['name'],
             'phone' => $data['phone'],
             'email' => $data['email'],
+            'consumer_id' => $consumer[0]->id,
             'password' => Hash::make($data['password']),
-
-
+    
+    
         ]);
-
+    
         $user->roles()->sync($role);
         return $user;
+
+
     }
 }

@@ -18,13 +18,17 @@
 
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/plugins/chart.js/Chart.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -38,16 +42,24 @@
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link  {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+                            <a class="nav-link  {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Головна</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('contacts') ? 'active' : '' }}" href="/contacts">Contacts</a>
+                            <a class="nav-link {{ Request::is('news') ? 'active' : '' }}" href="/news">Новини</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('guests') ? 'active' : '' }}" href="/guests">Споживачам</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('contacts') ? 'active' : '' }}" href="/contacts">Контакти</a>
                         </li>
                         @role('admin')
                             <li class="nav-item">
-                              <a class="nav-link" href="/admin">Admin Panel</a>
+                              <a class="nav-link" href="/admin">Адмін панель</a>
                             </li>
                         @endrole
+
+
 
                     </ul>
 
@@ -57,13 +69,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Логін') }}</a>
                                 </li>
                             @endif
                             
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Реєстрація') }}</a>
                                 </li>
                             @endif
                         @else
@@ -79,7 +91,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Вийти') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -97,11 +109,22 @@
             @yield('content')
         </main>
     </div>
+    @section('footer')
+        <footer>
+            <p class="text-center">© 2021 ТОВ "ЕЛЕКТРО КОМПАНІ"</p>
+        </footer>
+    @show
     <script src="{{asset('js/app.js')}}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/chart.js/Chart.js"></script>
+    <script src="/plugins/chart.js/Chart.bundle.js"></script>
     @yield('js')
 </body>
 </html>

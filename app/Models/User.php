@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'phone',
         'email',
+        'consumer_id',
         'password',
         'avatar',
         'confirmed',
@@ -48,5 +49,21 @@ class User extends Authenticatable
     public function getUserRolesAttribute()
     {
         return $this->roles->pluck('slug')->join(',');
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return $value ? $value : '/images/no-image.png';
+    }
+
+    public function consumer()
+    {
+        return $this->belongsTo(Consumer::class, 'consumer_id', 'id', 'id');
+        //модель, название столбца с внешним ключом, название столбца текущей модели, название столбца связанной модели
+    }
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
     }
 }
